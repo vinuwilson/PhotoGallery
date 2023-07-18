@@ -6,13 +6,14 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class GalleryViewModelShould {
+class GalleryRepositoryShould {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @get:Rule
@@ -21,56 +22,55 @@ class GalleryViewModelShould {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var viewModel: GalleryViewModel
-    private val repository = mock<GalleryRepository>()
+    private lateinit var repository: GalleryRepository
+    private val service = mock<GalleryServices>()
     private val galleryList = mock<Photos>()
     private val expected = Result.success(galleryList)
     private val exception = RuntimeException("Something went wrong")
 
     @Test
-    fun fetchGalleryListFromServer(): Unit = runBlocking {
-
-       mockSuccessfulCase()
-
-        viewModel.galleryList.getValueForTest()
-
-        verify(repository, times(1)).getGalleryList()
-    }
-
-    @Test
-    fun emitGalleryListFromServer() = runBlocking {
+    fun fetchGalleryListFromService(): Unit = runBlocking {
 
         mockSuccessfulCase()
 
-        assertEquals(expected, viewModel.galleryList.getValueForTest())
+        repository.getGalleryList()
+
+        verify(service, times(1)).getGalleryList()
     }
 
     @Test
-    fun emitErrorWhenReceiveError(): Unit = runBlocking {
+    fun emitGalleryListFromService(): Unit =  runBlocking {
+
+        mockSuccessfulCase()
+
+        assertEquals(expected, repository.getGalleryList().first())
+    }
+
+    @Test
+    fun emitError(): Unit = runBlocking {
 
         mockFailureCase()
 
-        assertEquals(exception, viewModel.galleryList.getValueForTest()!!.exceptionOrNull())
+        assertEquals(exception, repository.getGalleryList().first().exceptionOrNull())
     }
 
-
     private suspend fun mockSuccessfulCase() {
-        whenever(repository.getGalleryList()).thenReturn(
+        whenever(service.getGalleryList()).thenReturn(
             flow {
                 emit(expected)
             }
         )
 
-        viewModel = GalleryViewModel(repository)
+        repository = GalleryRepository(service)
     }
 
     private suspend fun mockFailureCase() {
-        whenever(repository.getGalleryList()).thenReturn(
+        whenever(service.getGalleryList()).thenReturn(
             flow {
                 emit(Result.failure(exception))
             }
         )
 
-        viewModel = GalleryViewModel(repository)
+        repository = GalleryRepository(service)
     }
 }

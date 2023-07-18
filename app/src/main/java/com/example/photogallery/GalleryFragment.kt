@@ -13,7 +13,8 @@ class GalleryFragment : Fragment() {
     private lateinit var viewModel : GalleryViewModel
     private lateinit var viewModelFactory: GalleryViewModelFactory
 
-    private val repository = GalleryRepository()
+    private val service = GalleryServices()
+    private val repository = GalleryRepository(service)
     private var binding : FragmentGalleryBinding? = null
 
     override fun onCreateView(
