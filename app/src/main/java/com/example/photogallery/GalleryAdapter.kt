@@ -31,8 +31,8 @@ class GalleryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.galleryImage.loadImage(item.url_s)
-        holder.avatar.loadImage(item.url_s)
+        holder.galleryImage.loadImage(item.url_m)
+        holder.avatar.loadImage(item.avatar)
         holder.ownerId.text = item.owner
         holder.ownerName.text = item.ownername
         holder.tags.text = item.tags

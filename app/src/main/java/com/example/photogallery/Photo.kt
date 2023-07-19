@@ -16,10 +16,13 @@ data class Photo(
     val ownername: String,
     val secret: String,
     val server: String,
-    val tags: String,
+    var tags: String,
     val title: String,
-    val url_m: String,
+    var url_m: String,
     val url_s: String,
     val width_m: Int,
-    val width_s: Int
+    val width_s: Int,
+    val iconserver : String,
+    val iconfarm :Int,
+    var avatar :String
 )
