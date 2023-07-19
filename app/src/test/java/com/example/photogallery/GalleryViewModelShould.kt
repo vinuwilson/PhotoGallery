@@ -23,14 +23,14 @@ class GalleryViewModelShould {
 
     private lateinit var viewModel: GalleryViewModel
     private val repository = mock<GalleryRepository>()
-    private val galleryList = mock<Photos>()
+    private val galleryList: PhotosRecentResponse = mock()
     private val expected = Result.success(galleryList)
     private val exception = RuntimeException("Something went wrong")
 
     @Test
     fun fetchGalleryListFromServer(): Unit = runBlocking {
 
-       mockSuccessfulCase()
+        mockSuccessfulCase()
 
         viewModel.galleryList.getValueForTest()
 

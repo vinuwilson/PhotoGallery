@@ -24,7 +24,7 @@ class GalleryRepositoryShould {
 
     private lateinit var repository: GalleryRepository
     private val service = mock<GalleryServices>()
-    private val galleryList = mock<Photos>()
+    private val galleryList : PhotosRecentResponse = mock()
     private val expected = Result.success(galleryList)
     private val exception = RuntimeException("Something went wrong")
 

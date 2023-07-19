@@ -8,7 +8,7 @@ class GalleryServices(
     private val api: GalleryAPI
 ) {
 
-    suspend fun getGalleryList(): Flow<Result<Photos>> {
+    suspend fun getGalleryList(): Flow<Result<PhotosRecentResponse>> {
         return flow {
             emit(Result.success(api.getGalleryList()))
         }.catch {

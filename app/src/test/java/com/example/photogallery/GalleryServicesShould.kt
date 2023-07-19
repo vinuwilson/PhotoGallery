@@ -22,8 +22,8 @@ class GalleryServicesShould {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var services: GalleryServices
-    private val api : GalleryAPI = mock()
-    private val galleryList = mock<Photos>()
+    private val api: GalleryAPI = mock()
+    private val galleryList: PhotosRecentResponse = mock()
     private val expected = Result.success(galleryList)
     private val exception = RuntimeException("Something went wrong")
 
@@ -46,11 +46,14 @@ class GalleryServicesShould {
     }
 
     @Test
-    fun emitErrorResultWhenNetworkFails() : Unit = runBlocking {
+    fun emitErrorResultWhenNetworkFails(): Unit = runBlocking {
 
         mockFailureCase()
 
-        assertEquals(exception.message, services.getGalleryList().first().exceptionOrNull()!!.message)
+        assertEquals(
+            exception.message,
+            services.getGalleryList().first().exceptionOrNull()!!.message
+        )
     }
 
     private suspend fun mockSuccessfulCase() {

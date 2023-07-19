@@ -6,7 +6,7 @@ class GalleryRepository(
     private val service: GalleryServices
 ) {
 
-    suspend fun getGalleryList() : Flow<Result<Photos>> {
+    suspend fun getGalleryList() : Flow<Result<PhotosRecentResponse>> {
         return service.getGalleryList()
     }
 

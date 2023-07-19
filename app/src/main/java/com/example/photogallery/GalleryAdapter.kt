@@ -16,7 +16,7 @@ class GalleryAdapter(
         val avatar: ImageView = binding.avatar
         val ownerId: TextView = binding.ownerId
         val ownerName: TextView = binding.ownerName
-        val title: TextView = binding.title
+        val tags: TextView = binding.tags
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,11 +31,11 @@ class GalleryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.galleryImage.loadImage(item.url_m)
+        holder.galleryImage.loadImage(item.url_s)
         holder.avatar.loadImage(item.url_s)
         holder.ownerId.text = item.owner
         holder.ownerName.text = item.ownername
-        holder.title.text = item.title
+        holder.tags.text = item.tags
     }
 
     override fun getItemCount(): Int = values.size
