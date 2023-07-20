@@ -9,7 +9,7 @@ import com.example.photogallery.databinding.GalleryItemBinding
 
 class GalleryAdapter(
     private val values: List<Photo>,
-    private val listener: (Photo) -> Unit
+    private val listener: (Pair<Photo, Boolean>) -> Unit
 ) : RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     inner class ViewHolder(binding: GalleryItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -37,7 +37,8 @@ class GalleryAdapter(
         holder.ownerId.text = item.owner
         holder.ownerName.text = item.ownername
         holder.tags.text = item.tags
-        holder.galleryImage.setOnClickListener { listener(item) }
+        holder.galleryImage.setOnClickListener { listener(Pair(item, true)) }
+        holder.avatar.setOnClickListener { listener(Pair(item, false)) }
     }
 
     override fun getItemCount(): Int = values.size

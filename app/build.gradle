@@ -16,6 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "FLICKR_API_KEY", "\"e9abde1807ca996f9f97ad37e48470be\""
     }
 
     buildTypes {

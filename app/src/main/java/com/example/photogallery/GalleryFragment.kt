@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.photogallery.databinding.FragmentGalleryBinding
@@ -53,9 +52,16 @@ class GalleryFragment : Fragment() {
     private fun setupListView(galleryList: RecyclerView, photosResponse: PhotosRecentResponse) {
         with(galleryList) {
             layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-            adapter = GalleryAdapter(photosResponse.photos.photo) { photoDetails ->
-                val action =  GalleryFragmentDirections.actionGalleryFragmentToImageDetailsScreen(photoDetails)
-                findNavController().navigate(action)
+            adapter = GalleryAdapter(photosResponse.photos.photo) { userDetails ->
+                if (userDetails.second) {
+                    val action =
+                        GalleryFragmentDirections.actionGalleryFragmentToImageDetailsScreen(userDetails.first)
+                    findNavController().navigate(action)
+                } else {
+                    val userProfile =
+                        GalleryFragmentDirections.actionGalleryFragmentToUserProfileFragment(userDetails.first.owner)
+                    findNavController().navigate(userProfile)
+                }
             }
         }
     }

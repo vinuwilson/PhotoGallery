@@ -73,7 +73,7 @@ class GalleryFeature {
     }
 
     @Test
-    fun navigateToSecondScreen(){
+    fun navigateToDetailsScreen(){
 
         onView(
             AllOf.allOf(
@@ -85,6 +85,21 @@ class GalleryFeature {
         assertDisplayed(R.id.image_details_screen)
 
     }
+
+    @Test
+    fun navigateToProfileScreen(){
+
+        onView(
+            AllOf.allOf(
+                withId(R.id.avatar),
+                ViewMatchers.isDescendantOfA(nthChildOf(withId(R.id.gallery_list), 0))
+            )
+        ).perform(click())
+
+        assertDisplayed(R.id.user_profile)
+
+    }
+
 
     fun nthChildOf(parentMatcher: Matcher<View>, childPosition: Int): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
