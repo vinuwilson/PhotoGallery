@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.photogallery.databinding.GalleryItemBinding
 
 class GalleryAdapter(
-    private val values: List<Photo>
+    private val values: List<Photo>,
+    private val listener: (Photo) -> Unit
 ) : RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     inner class ViewHolder(binding: GalleryItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -36,6 +37,7 @@ class GalleryAdapter(
         holder.ownerId.text = item.owner
         holder.ownerName.text = item.ownername
         holder.tags.text = item.tags
+        holder.galleryImage.setOnClickListener { listener(item) }
     }
 
     override fun getItemCount(): Int = values.size

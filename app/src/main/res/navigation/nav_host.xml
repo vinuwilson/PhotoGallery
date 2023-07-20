@@ -9,5 +9,17 @@
         android:id="@+id/galleryFragment"
         android:name="com.example.photogallery.GalleryFragment"
         android:label="GalleryFragment"
-        tools:layout="@layout/fragment_gallery"/>
+        tools:layout="@layout/fragment_gallery">
+        <action
+            android:id="@+id/action_galleryFragment_to_imageDetailsScreen"
+            app:destination="@id/imageDetailsScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageDetailsScreen"
+        android:name="com.example.photogallery.ImageDetailsScreen"
+        android:label="ImageDetailsScreen" >
+        <argument
+            android:name="imageDetails"
+            app:argType="com.example.photogallery.Photo" />
+    </fragment>
 </navigation>

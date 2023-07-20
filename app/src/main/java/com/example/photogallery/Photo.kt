@@ -25,4 +25,4 @@ data class Photo(
     val iconserver : String,
     val iconfarm :Int,
     var avatar :String
-)
+) :java.io.Serializable

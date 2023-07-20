@@ -3,6 +3,9 @@ package com.example.photogallery
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -40,7 +43,7 @@ class GalleryFeature {
 
         BaristaRecyclerViewAssertions.assertRecyclerViewItemCount(R.id.gallery_list, 25)
 
-        Espresso.onView(
+        onView(
             AllOf.allOf(
                 withId(R.id.owner_id),
                 ViewMatchers.isDescendantOfA(nthChildOf(withId(R.id.gallery_list), 0))
@@ -49,7 +52,7 @@ class GalleryFeature {
             .check(ViewAssertions.matches(ViewMatchers.withText("123041183@N05")))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-        Espresso.onView(
+        onView(
             AllOf.allOf(
                 withId(R.id.owner_name),
                 ViewMatchers.isDescendantOfA(nthChildOf(withId(R.id.gallery_list), 0))
@@ -58,14 +61,28 @@ class GalleryFeature {
             .check(ViewAssertions.matches(ViewMatchers.withText("federico.fragale")))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-        Espresso.onView(
+        onView(
             AllOf.allOf(
-                withId(R.id.title),
+                withId(R.id.tags),
                 ViewMatchers.isDescendantOfA(nthChildOf(withId(R.id.gallery_list), 0))
             )
         )
             .check(ViewAssertions.matches(ViewMatchers.withText("")))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+
+    }
+
+    @Test
+    fun navigateToSecondScreen(){
+
+        onView(
+            AllOf.allOf(
+                withId(R.id.gallery_image),
+                ViewMatchers.isDescendantOfA(nthChildOf(withId(R.id.gallery_list), 0))
+            )
+        ).perform(click())
+
+        assertDisplayed(R.id.image_details_screen)
 
     }
 
