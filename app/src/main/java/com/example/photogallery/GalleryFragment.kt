@@ -1,10 +1,14 @@
 package com.example.photogallery
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +32,9 @@ class GalleryFragment : Fragment() {
     private val service = GalleryServices(api)
     private val repository = GalleryRepository(service)
     private var binding: FragmentGalleryBinding? = null
-
+    private lateinit var customAdapter : GalleryAdapter
+    private lateinit var photoRes :PhotosRecentResponse
+    private var gridFlag: Boolean = true
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,20 +45,75 @@ class GalleryFragment : Fragment() {
 
         setupViewModel()
         setupObserver()
+        filterGallery()
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.main_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.search -> {
+                        binding!!.search.visibility = View.VISIBLE
+                        true
+                    }
+                    R.id.grid -> {
+                        if(gridFlag) {
+                            setupListView(2, binding!!.galleryList, photoRes)
+                            menuItem.title = "List"
+                            menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_list)
+                            gridFlag = false
+                        } else {
+                            setupListView(1, binding!!.galleryList, photoRes)
+                            menuItem.title = "Grid"
+                            menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_grid)
+                            gridFlag = true
+                        }
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         return binding!!.root
+    }
+
+    private fun filterGallery() {
+        binding!!.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                customAdapter.filter.filter(newText)
+                return false
+            }
+        })
     }
 
     private fun setupObserver() {
         viewModel.galleryList.observe(this) { galleryList ->
-            if (galleryList.getOrNull() != null)
-                setupListView(binding!!.galleryList, galleryList.getOrNull()!!)
+            if (galleryList.getOrNull() != null) {
+                photoRes = galleryList.getOrNull()!!
+                setupListView(1, binding!!.galleryList, galleryList.getOrNull()!!)
+            }
+        }
+
+        viewModel.loader.observe(this as LifecycleOwner) { loading ->
+            when (loading) {
+                true -> binding!!.loader.visibility = View.VISIBLE
+                else -> binding!!.loader.visibility = View.GONE
+            }
         }
     }
 
-    private fun setupListView(galleryList: RecyclerView, photosResponse: PhotosRecentResponse) {
+    private fun setupListView(count: Int, galleryList: RecyclerView, photosResponse: PhotosRecentResponse) {
         with(galleryList) {
-            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-            adapter = GalleryAdapter(photosResponse.photos.photo) { userDetails ->
+            layoutManager = StaggeredGridLayoutManager(count, StaggeredGridLayoutManager.VERTICAL)
+            customAdapter = GalleryAdapter(photosResponse.photos.photo) { userDetails ->
                 if (userDetails.second) {
                     val action =
                         GalleryFragmentDirections.actionGalleryFragmentToImageDetailsScreen(userDetails.first)
@@ -63,6 +124,8 @@ class GalleryFragment : Fragment() {
                     findNavController().navigate(userProfile)
                 }
             }
+            galleryList.adapter = customAdapter
+            galleryList.adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
     }
 

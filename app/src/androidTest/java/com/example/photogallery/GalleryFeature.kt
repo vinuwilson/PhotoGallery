@@ -14,6 +14,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adevinta.android.barista.assertion.BaristaRecyclerViewAssertions
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
@@ -98,6 +99,18 @@ class GalleryFeature {
 
         assertDisplayed(R.id.user_profile)
 
+    }
+
+    @Test
+    fun displayProgressLoaderWhileFetchingGalleryList(){
+        Thread.sleep(4000)
+
+        assertDisplayed(R.id.loader)
+    }
+
+    @Test
+    fun hideLoader() {
+        assertNotDisplayed(R.id.loader)
     }
 
 

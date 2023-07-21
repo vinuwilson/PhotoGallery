@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:cardMaxElevation="5dp"
     android:layout_margin="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,27 +14,20 @@
         android:layout_margin="5dp"
         android:background="#252626">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/avatar_cardView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="5dp"
-            android:foreground="@drawable/circle"
-            app:cardCornerRadius="50dp"
-            app:cardElevation="2dp"
+            android:padding="2dp"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/avatar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:contentDescription="@string/app_name"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher"
-                tools:ignore="ImageContrastCheck" />
-
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/Circular"
+            app:strokeColor="@android:color/holo_red_dark"
+            app:strokeWidth="2dp"
+            tools:ignore="ImageContrastCheck,MissingConstraints" />
 
         <TextView
             android:id="@+id/owner_name"
@@ -42,7 +37,7 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/avatar_cardView"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="User name" />
 
@@ -53,9 +48,9 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:maxLines="2"
-            android:textSize="11sp"
             android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/avatar_cardView"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toBottomOf="@+id/owner_name"
             tools:text="User id" />
 
@@ -72,7 +67,7 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/avatar_cardView"
+            app:layout_constraintTop_toBottomOf="@+id/avatar"
             tools:ignore="ImageContrastCheck" />
 
         <TextView
