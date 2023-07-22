@@ -1,4 +1,4 @@
-package com.example.photogallery.userprofile
+package com.example.photogallery.userprofile.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

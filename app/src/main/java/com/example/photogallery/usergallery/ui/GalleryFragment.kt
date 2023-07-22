@@ -1,4 +1,4 @@
-package com.example.photogallery
+package com.example.photogallery.usergallery.ui
 
 import android.os.Bundle
 import android.view.*
@@ -13,28 +13,29 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.photogallery.R
 import com.example.photogallery.databinding.FragmentGalleryBinding
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.photogallery.usergallery.viewmodel.GalleryViewModel
+import com.example.photogallery.usergallery.viewmodel.GalleryViewModelFactory
+import com.example.photogallery.usergallery.model.RecentPhotos
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GalleryFragment : Fragment() {
 
     private lateinit var viewModel: GalleryViewModel
-    private lateinit var viewModelFactory: GalleryViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: GalleryViewModelFactory
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://www.flickr.com/services/rest/")
-        .client(OkHttpClient())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    private val api = retrofit.create(GalleryAPI::class.java)
-    private val service = GalleryServices(api)
-    private val repository = GalleryRepository(service)
     private var binding: FragmentGalleryBinding? = null
+
     private lateinit var customAdapter : GalleryAdapter
-    private lateinit var photoRes :PhotosRecentResponse
+
+    private lateinit var photoRes : RecentPhotos
+
     private var gridFlag: Boolean = true
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,7 +47,12 @@ class GalleryFragment : Fragment() {
         setupViewModel()
         setupObserver()
         filterGallery()
+        setupMenu()
 
+        return binding!!.root
+    }
+
+    private fun setupMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -63,12 +69,16 @@ class GalleryFragment : Fragment() {
                         if(gridFlag) {
                             setupListView(2, binding!!.galleryList, photoRes)
                             menuItem.title = "List"
-                            menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_list)
+                            menuItem.icon = ContextCompat.getDrawable(requireContext(),
+                                R.drawable.ic_action_list
+                            )
                             gridFlag = false
                         } else {
                             setupListView(1, binding!!.galleryList, photoRes)
                             menuItem.title = "Grid"
-                            menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_grid)
+                            menuItem.icon = ContextCompat.getDrawable(requireContext(),
+                                R.drawable.ic_action_grid
+                            )
                             gridFlag = true
                         }
                         true
@@ -77,8 +87,6 @@ class GalleryFragment : Fragment() {
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-        return binding!!.root
     }
 
     private fun filterGallery() {
@@ -110,7 +118,7 @@ class GalleryFragment : Fragment() {
         }
     }
 
-    private fun setupListView(count: Int, galleryList: RecyclerView, photosResponse: PhotosRecentResponse) {
+    private fun setupListView(count: Int, galleryList: RecyclerView, photosResponse: RecentPhotos) {
         with(galleryList) {
             layoutManager = StaggeredGridLayoutManager(count, StaggeredGridLayoutManager.VERTICAL)
             customAdapter = GalleryAdapter(photosResponse.photos.photo) { userDetails ->
@@ -130,7 +138,6 @@ class GalleryFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModelFactory = GalleryViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[GalleryViewModel::class.java]
     }
 }

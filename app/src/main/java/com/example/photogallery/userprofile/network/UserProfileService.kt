@@ -1,11 +1,12 @@
-package com.example.photogallery.userprofile
+package com.example.photogallery.userprofile.network
 
 import com.example.photogallery.userprofile.model.UserProfile
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class UserProfileService(
+class UserProfileService @Inject constructor(
     private val api: UserProfileAPI
 ) {
 

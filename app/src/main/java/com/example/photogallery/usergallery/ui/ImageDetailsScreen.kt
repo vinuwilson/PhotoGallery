@@ -1,4 +1,4 @@
-package com.example.photogallery
+package com.example.photogallery.usergallery.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.photogallery.databinding.FragmentImageDetailsScreenBinding
+import com.example.photogallery.loadImage
 
 class ImageDetailsScreen : Fragment() {
 

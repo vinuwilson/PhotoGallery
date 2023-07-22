@@ -1,6 +1,9 @@
 package com.example.photogallery
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.photogallery.usergallery.network.GalleryRepository
+import com.example.photogallery.usergallery.viewmodel.GalleryViewModel
+import com.example.photogallery.usergallery.model.RecentPhotos
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
@@ -23,7 +26,7 @@ class GalleryViewModelShould {
 
     private lateinit var viewModel: GalleryViewModel
     private val repository = mock<GalleryRepository>()
-    private val galleryList: PhotosRecentResponse = mock()
+    private val galleryList: RecentPhotos = mock()
     private val expected = Result.success(galleryList)
     private val exception = RuntimeException("Something went wrong")
 

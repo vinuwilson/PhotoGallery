@@ -1,9 +1,10 @@
-package com.example.photogallery.userprofile
+package com.example.photogallery.userprofile.network
 
 import com.example.photogallery.userprofile.model.UserProfile
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class UserProfileRepository(
+class UserProfileRepository @Inject constructor(
     private val service: UserProfileService
 ) {
 

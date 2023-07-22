@@ -1,4 +1,4 @@
-package com.example.photogallery
+package com.example.photogallery.usergallery.ui
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.photogallery.databinding.GalleryItemBinding
+import com.example.photogallery.loadImage
+import com.example.photogallery.usergallery.model.Photo
 
 class GalleryAdapter(
     private val values: List<Photo>,

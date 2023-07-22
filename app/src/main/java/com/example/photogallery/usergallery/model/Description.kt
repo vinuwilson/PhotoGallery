@@ -1,4 +1,4 @@
-package com.example.photogallery
+package com.example.photogallery.usergallery.model
 
 data class Description(
     val _content: String

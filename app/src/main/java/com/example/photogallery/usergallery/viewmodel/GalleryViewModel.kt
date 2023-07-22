@@ -1,12 +1,14 @@
-package com.example.photogallery
+package com.example.photogallery.usergallery.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
+import com.example.photogallery.usergallery.network.GalleryRepository
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class GalleryViewModel(
+class GalleryViewModel @Inject constructor(
     private val repository: GalleryRepository
 ) :ViewModel() {
 

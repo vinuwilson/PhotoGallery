@@ -1,4 +1,4 @@
-package com.example.photogallery
+package com.example.photogallery.usergallery.model
 
 data class Photos(
     val page: Int,

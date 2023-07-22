@@ -1,14 +1,16 @@
-package com.example.photogallery
+package com.example.photogallery.usergallery.network
 
+import com.example.photogallery.usergallery.model.RecentPhotos
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class GalleryServices(
+class GalleryServices @Inject constructor(
     private val api: GalleryAPI
 ) {
 
-    suspend fun getGalleryList(): Flow<Result<PhotosRecentResponse>> {
+    suspend fun getGalleryList(): Flow<Result<RecentPhotos>> {
         return flow {
             emit(Result.success(api.getGalleryList()))
         }.catch {

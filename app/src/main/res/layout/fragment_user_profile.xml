@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    tools:context=".userprofile.UserProfileFragment">
+    tools:context=".userprofile.ui.UserProfileFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_image_grid"

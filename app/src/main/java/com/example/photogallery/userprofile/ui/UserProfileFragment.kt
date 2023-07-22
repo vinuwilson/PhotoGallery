@@ -1,4 +1,4 @@
-package com.example.photogallery.userprofile
+package com.example.photogallery.userprofile.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,24 +12,18 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.photogallery.databinding.FragmentUserProfileBinding
 import com.example.photogallery.userprofile.model.UserProfile
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.photogallery.userprofile.viewmodel.UserProfileViewModel
+import com.example.photogallery.userprofile.viewmodel.UserProfileViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserProfileFragment : Fragment() {
 
     private lateinit var viewModel: UserProfileViewModel
 
-    private lateinit var viewModelFactory: UserProfileViewModelFactory
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://www.flickr.com/services/rest/")
-        .client(OkHttpClient())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    private val api = retrofit.create(UserProfileAPI::class.java)
-    private val service = UserProfileService(api)
-    private val repository = UserProfileRepository(service)
+    @Inject
+    lateinit var viewModelFactory: UserProfileViewModelFactory
 
     private var binding: FragmentUserProfileBinding? = null
 
@@ -42,22 +36,20 @@ class UserProfileFragment : Fragment() {
 
         binding = FragmentUserProfileBinding.inflate(inflater)
 
-        val userId = args.userId
-
-        setupViewModel(userId)
+        setupViewModel()
         setupObserver()
 
+        viewModel.getUserProfile(args.userId)
         return binding!!.root
     }
 
-    private fun setupViewModel(userId: String) {
-        viewModelFactory = UserProfileViewModelFactory(repository, userId)
+    private fun setupViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory)[UserProfileViewModel::class.java]
     }
 
     private fun setupObserver() {
         viewModel.userProfile.observe(this as LifecycleOwner) { userProfile ->
-            if(userProfile.getOrNull() != null)
+            if (userProfile.getOrNull() != null)
                 setupListView(binding!!.userImageGrid, userProfile.getOrNull()!!)
         }
 
@@ -71,7 +63,7 @@ class UserProfileFragment : Fragment() {
 
     private fun setupListView(userImageGrid: RecyclerView, userProfile: UserProfile) {
         with(userImageGrid as RecyclerView) {
-            layoutManager = StaggeredGridLayoutManager(2,  StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = UserProfileAdapter(userProfile.photos.photo)
         }
     }

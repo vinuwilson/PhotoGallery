@@ -1,4 +1,4 @@
-package com.example.photogallery.userprofile
+package com.example.photogallery.userprofile.network
 
 import com.example.photogallery.BuildConfig
 import com.example.photogallery.userprofile.model.UserProfile
