@@ -1,4 +1,4 @@
-package com.example.photogallery
+package com.example.photogallery.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

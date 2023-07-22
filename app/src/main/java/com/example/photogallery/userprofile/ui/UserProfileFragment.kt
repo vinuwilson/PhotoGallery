@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.photogallery.databinding.FragmentUserProfileBinding
+import com.example.photogallery.loadImage
 import com.example.photogallery.userprofile.model.UserProfile
 import com.example.photogallery.userprofile.viewmodel.UserProfileViewModel
 import com.example.photogallery.userprofile.viewmodel.UserProfileViewModelFactory
@@ -39,7 +40,10 @@ class UserProfileFragment : Fragment() {
         setupViewModel()
         setupObserver()
 
-        viewModel.getUserProfile(args.userId)
+        binding!!.coverPhoto.loadImage(args.userDetails.url_m)
+        binding!!.avatar.loadImage(args.userDetails.avatar)
+        binding!!.title.text = args.userDetails.ownername
+        viewModel.getUserProfile(args.userDetails.owner)
         return binding!!.root
     }
 

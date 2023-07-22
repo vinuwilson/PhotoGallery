@@ -31,7 +31,7 @@
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" >
         <argument
-            android:name="userId"
-            app:argType="string" />
+            android:name="userDetails"
+            app:argType="com.example.photogallery.usergallery.model.Photo" />
     </fragment>
 </navigation>

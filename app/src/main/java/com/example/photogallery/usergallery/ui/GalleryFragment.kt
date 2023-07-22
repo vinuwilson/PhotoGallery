@@ -128,7 +128,7 @@ class GalleryFragment : Fragment() {
                     findNavController().navigate(action)
                 } else {
                     val userProfile =
-                        GalleryFragmentDirections.actionGalleryFragmentToUserProfileFragment(userDetails.first.owner)
+                        GalleryFragmentDirections.actionGalleryFragmentToUserProfileFragment(userDetails.first)
                     findNavController().navigate(userProfile)
                 }
             }

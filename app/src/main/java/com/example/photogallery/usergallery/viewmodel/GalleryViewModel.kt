@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.example.photogallery.usergallery.network.GalleryRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GalleryViewModel @Inject constructor(

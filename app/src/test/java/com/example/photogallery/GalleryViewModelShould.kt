@@ -4,6 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.photogallery.usergallery.network.GalleryRepository
 import com.example.photogallery.usergallery.viewmodel.GalleryViewModel
 import com.example.photogallery.usergallery.model.RecentPhotos
+import com.example.photogallery.utils.MainCoroutineScopeRule
+import com.example.photogallery.utils.getValueForTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify

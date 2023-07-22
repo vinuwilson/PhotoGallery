@@ -1,4 +1,4 @@
-package com.example.photogallery
+package com.example.photogallery.utils
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
