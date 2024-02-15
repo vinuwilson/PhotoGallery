@@ -1,7 +1,8 @@
-package com.example.photogallery
+package com.example.photogallery.utils
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.example.photogallery.R
 
 fun ImageView.loadImage(strURL: String) {
     Glide.with(this.context)
