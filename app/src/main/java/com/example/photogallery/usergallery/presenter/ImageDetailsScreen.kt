@@ -19,7 +19,7 @@ class ImageDetailsScreen : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentImageDetailsScreenBinding.inflate(inflater)
         val imageDetails = args.imageDetails

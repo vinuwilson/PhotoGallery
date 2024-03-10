@@ -1,21 +1,17 @@
 package com.example.photogallery
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.photogallery.usergallery.data.model.RecentPhotos
 import com.example.photogallery.usergallery.domin.PhotoUseCases
 import com.example.photogallery.usergallery.presenter.GalleryViewModel
 import com.example.photogallery.utils.BaseUnitTest
-import com.example.photogallery.utils.MainCoroutineScopeRule
 import com.example.photogallery.utils.getValueForTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Rule
 import org.junit.Test
 
 class GalleryViewModelShould : BaseUnitTest() {
