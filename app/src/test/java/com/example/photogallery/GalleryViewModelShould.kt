@@ -1,9 +1,10 @@
 package com.example.photogallery
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.photogallery.usergallery.network.GalleryRepository
-import com.example.photogallery.usergallery.viewmodel.GalleryViewModel
-import com.example.photogallery.usergallery.model.RecentPhotos
+import com.example.photogallery.usergallery.data.model.RecentPhotos
+import com.example.photogallery.usergallery.domin.PhotoUseCases
+import com.example.photogallery.usergallery.presenter.GalleryViewModel
+import com.example.photogallery.utils.BaseUnitTest
 import com.example.photogallery.utils.MainCoroutineScopeRule
 import com.example.photogallery.utils.getValueForTest
 import com.nhaarman.mockitokotlin2.mock
@@ -17,17 +18,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class GalleryViewModelShould {
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @get:Rule
-    val coroutineScopeRule = MainCoroutineScopeRule()
-
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+class GalleryViewModelShould : BaseUnitTest() {
 
     private lateinit var viewModel: GalleryViewModel
-    private val repository = mock<GalleryRepository>()
+    private val photoUseCases : PhotoUseCases = mock()
     private val galleryList: RecentPhotos = mock()
     private val expected = Result.success(galleryList)
     private val exception = RuntimeException("Something went wrong")
@@ -39,7 +33,7 @@ class GalleryViewModelShould {
 
         viewModel.galleryList.getValueForTest()
 
-        verify(repository, times(1)).getGalleryList()
+        verify(photoUseCases, times(1)).getPhotos()
     }
 
     @Test
@@ -60,22 +54,22 @@ class GalleryViewModelShould {
 
 
     private suspend fun mockSuccessfulCase() {
-        whenever(repository.getGalleryList()).thenReturn(
+        whenever(photoUseCases.getPhotos()).thenReturn(
             flow {
                 emit(expected)
             }
         )
 
-        viewModel = GalleryViewModel(repository)
+        viewModel = GalleryViewModel(photoUseCases)
     }
 
     private suspend fun mockFailureCase() {
-        whenever(repository.getGalleryList()).thenReturn(
+        whenever(photoUseCases.getPhotos()).thenReturn(
             flow {
                 emit(Result.failure(exception))
             }
         )
 
-        viewModel = GalleryViewModel(repository)
+        viewModel = GalleryViewModel(photoUseCases)
     }
 }

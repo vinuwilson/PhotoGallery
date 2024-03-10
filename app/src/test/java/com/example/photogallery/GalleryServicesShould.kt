@@ -1,29 +1,19 @@
 package com.example.photogallery
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.photogallery.usergallery.network.GalleryAPI
-import com.example.photogallery.usergallery.network.GalleryServices
-import com.example.photogallery.usergallery.model.RecentPhotos
-import com.example.photogallery.utils.MainCoroutineScopeRule
+import com.example.photogallery.usergallery.data.api.GalleryAPI
+import com.example.photogallery.usergallery.data.api.GalleryServices
+import com.example.photogallery.usergallery.data.model.RecentPhotos
+import com.example.photogallery.utils.BaseUnitTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Rule
 import org.junit.Test
 
-class GalleryServicesShould {
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @get:Rule
-    val coroutineScopeRule = MainCoroutineScopeRule()
-
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+class GalleryServicesShould : BaseUnitTest() {
 
     private lateinit var services: GalleryServices
     private val api: GalleryAPI = mock()

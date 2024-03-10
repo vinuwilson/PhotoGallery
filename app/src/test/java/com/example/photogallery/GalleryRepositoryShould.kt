@@ -1,34 +1,24 @@
 package com.example.photogallery
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.photogallery.usergallery.network.GalleryRepository
-import com.example.photogallery.usergallery.network.GalleryServices
-import com.example.photogallery.usergallery.model.RecentPhotos
-import com.example.photogallery.utils.MainCoroutineScopeRule
+import com.example.photogallery.usergallery.data.api.GalleryServices
+import com.example.photogallery.usergallery.data.model.RecentPhotos
+import com.example.photogallery.usergallery.domin.GalleryRepositoryImp
+import com.example.photogallery.utils.BaseUnitTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Rule
 import org.junit.Test
 
-class GalleryRepositoryShould {
+class GalleryRepositoryShould : BaseUnitTest() {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @get:Rule
-    val coroutineScopeRule = MainCoroutineScopeRule()
-
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
-
-    private lateinit var repository: GalleryRepository
+    private lateinit var repository: GalleryRepositoryImp
     private val service = mock<GalleryServices>()
-    private val galleryList : RecentPhotos = mock()
+    private val galleryList: RecentPhotos = mock()
     private val expected = Result.success(galleryList)
     private val exception = RuntimeException("Something went wrong")
 
@@ -43,7 +33,7 @@ class GalleryRepositoryShould {
     }
 
     @Test
-    fun emitGalleryListFromService(): Unit =  runBlocking {
+    fun emitGalleryListFromService(): Unit = runBlocking {
 
         mockSuccessfulCase()
 
@@ -65,7 +55,7 @@ class GalleryRepositoryShould {
             }
         )
 
-        repository = GalleryRepository(service)
+        repository = GalleryRepositoryImp(service)
     }
 
     private suspend fun mockFailureCase() {
@@ -75,6 +65,6 @@ class GalleryRepositoryShould {
             }
         )
 
-        repository = GalleryRepository(service)
+        repository = GalleryRepositoryImp(service)
     }
 }

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/layout_margin_medium"
     android:background="@color/background_color"
-    tools:context=".userprofile.ui.UserProfileFragment">
+    tools:context=".userprofile.presenter.UserProfileFragment">
 
     <ImageView
         android:id="@+id/cover_photo"
