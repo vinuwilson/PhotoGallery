@@ -4,6 +4,7 @@ import com.example.photogallery.usergallery.data.model.RecentPhotos
 import com.example.photogallery.usergallery.domin.PhotoUseCases
 import com.example.photogallery.usergallery.presenter.GalleryViewModel
 import com.example.photogallery.utils.BaseUnitTest
+import com.example.photogallery.utils.captureValues
 import com.example.photogallery.utils.getValueForTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
@@ -46,6 +47,42 @@ class GalleryViewModelShould : BaseUnitTest() {
         mockFailureCase()
 
         assertEquals(exception, viewModel.galleryList.getValueForTest()!!.exceptionOrNull())
+    }
+
+    @Test
+    fun showProgressbarWhileLoading() = runBlocking {
+
+        mockSuccessfulCase()
+
+        viewModel.loader.captureValues {
+            viewModel.galleryList.getValueForTest()
+
+            assertEquals(true, values[0])
+        }
+    }
+
+    @Test
+    fun hideProgressbarAfterListLoad() = runBlocking {
+
+        mockSuccessfulCase()
+
+        viewModel.loader.captureValues {
+            viewModel.galleryList.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
+    }
+
+    @Test
+    fun hideProgressbarAfterError() = runBlocking {
+
+        mockFailureCase()
+
+        viewModel.loader.captureValues {
+            viewModel.galleryList.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
     }
 
 

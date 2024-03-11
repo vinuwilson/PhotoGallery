@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
@@ -7,18 +7,14 @@ plugins {
 }
 
 android {
-    namespace 'com.example.photogallery'
+    namespace 'com.example.userprofile'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.photogallery"
         minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "FLICKR_API_KEY", "\"e9abde1807ca996f9f97ad37e48470be\""
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -41,7 +37,6 @@ android {
 
 dependencies {
 
-    implementation project(':userprofile')
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
@@ -64,15 +59,6 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.49"
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
-    testImplementation 'org.mockito:mockito-inline:5.2.0'
-    testImplementation 'androidx.arch.core:core-testing:2.2.0'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
-    testImplementation("org.mockito:mockito-inline:5.2.0")
-
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation('com.adevinta.android:barista:4.2.0') {
-        exclude group: 'org.jetbrains.kotlin'
-    }
 }

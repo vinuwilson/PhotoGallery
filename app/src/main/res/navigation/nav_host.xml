@@ -5,6 +5,7 @@
     android:id="@+id/nav_host"
     app:startDestination="@id/galleryFragment">
 
+    <include app:graph="@navigation/nav_user_profile" />
     <fragment
         android:id="@+id/galleryFragment"
         android:name="com.example.photogallery.usergallery.presenter.GalleryFragment"
@@ -20,18 +21,18 @@
     <fragment
         android:id="@+id/imageDetailsScreen"
         android:name="com.example.photogallery.usergallery.presenter.ImageDetailsScreen"
-        android:label="ImageDetailsScreen" >
+        android:label="ImageDetailsScreen">
         <argument
             android:name="imageDetails"
             app:argType="com.example.photogallery.usergallery.data.model.Photo" />
     </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
-        android:name="com.example.photogallery.userprofile.presenter.UserProfileFragment"
+        android:name="com.example.userprofile.presenter.UserProfileFragment"
         android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" >
+        tools:layout="@layout/fragment_user_profile">
         <argument
             android:name="userDetails"
-            app:argType="com.example.photogallery.usergallery.data.model.Photo" />
+            app:argType="string" />
     </fragment>
 </navigation>
