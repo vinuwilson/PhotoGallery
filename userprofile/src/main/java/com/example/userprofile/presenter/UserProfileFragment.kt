@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.userprofile.data.model.Photos
 import com.example.userprofile.data.model.UserProfile
 import com.example.userprofile.databinding.FragmentUserProfileBinding
-import com.example.userprofile.loadImage
+import com.example.userprofile.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

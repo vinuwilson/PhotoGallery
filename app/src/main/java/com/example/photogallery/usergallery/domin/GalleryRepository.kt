@@ -1,4 +1,4 @@
-package com.example.photogallery.usergallery.data.api
+package com.example.photogallery.usergallery.domin
 
 import com.example.photogallery.usergallery.data.model.RecentPhotos
 import kotlinx.coroutines.flow.Flow

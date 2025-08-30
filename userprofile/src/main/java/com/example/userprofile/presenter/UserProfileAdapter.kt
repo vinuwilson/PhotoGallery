@@ -6,7 +6,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.userprofile.data.model.Photo
 import com.example.userprofile.databinding.UserImageGridBinding
-import com.example.userprofile.loadImage
+import com.example.userprofile.utils.loadImage
 
 class UserProfileAdapter(
     private val photo: List<Photo>

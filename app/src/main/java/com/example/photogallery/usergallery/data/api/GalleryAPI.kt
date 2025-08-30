@@ -1,9 +1,10 @@
 package com.example.photogallery.usergallery.data.api
 
+import com.example.photogallery.BuildConfig.FLICKR_API_KEY
 import com.example.photogallery.usergallery.data.model.RecentPhotos
 import retrofit2.http.GET
 
-const val FLICKR_API_KEY = "e9abde1807ca996f9f97ad37e48470be"
+//const val FLICKR_API_KEY = "e9abde1807ca996f9f97ad37e48470be"
 
 interface GalleryAPI {
 

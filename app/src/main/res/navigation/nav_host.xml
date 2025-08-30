@@ -5,7 +5,6 @@
     android:id="@+id/nav_host"
     app:startDestination="@id/galleryFragment">
 
-    <include app:graph="@navigation/nav_user_profile" />
     <fragment
         android:id="@+id/galleryFragment"
         android:name="com.example.photogallery.usergallery.presenter.GalleryFragment"
@@ -17,6 +16,9 @@
         <action
             android:id="@+id/action_galleryFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_galleryFragment_to_testComposeFragment"
+            app:destination="@id/testComposeFragment" />
     </fragment>
     <fragment
         android:id="@+id/imageDetailsScreen"
@@ -25,6 +27,10 @@
         <argument
             android:name="imageDetails"
             app:argType="com.example.photogallery.usergallery.data.model.Photo" />
+        <action
+            android:id="@+id/action_imageDetailsScreen_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:popUpTo="@+id/galleryFragment"/>
     </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
@@ -33,6 +39,14 @@
         tools:layout="@layout/fragment_user_profile">
         <argument
             android:name="userDetails"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/testComposeFragment"
+        android:name="com.example.photogallery.TestComposeFragment"
+        android:label="TestComposeFragment" >
+        <argument
+            android:name="test"
             app:argType="string" />
     </fragment>
 </navigation>

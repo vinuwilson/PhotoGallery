@@ -1,8 +1,8 @@
 package com.example.photogallery.usergallery.data.di
 
-import com.example.photogallery.usergallery.domin.GalleryRepositoryImp
+import com.example.photogallery.usergallery.data.api.GalleryRepositoryImp
 import com.example.photogallery.usergallery.data.api.GalleryAPI
-import com.example.photogallery.usergallery.data.api.GalleryRepository
+import com.example.photogallery.usergallery.domin.GalleryRepository
 import com.example.photogallery.usergallery.data.api.GalleryServices
 import dagger.Module
 import dagger.Provides

@@ -1,7 +1,8 @@
-package com.example.userprofile
+package com.example.userprofile.utils
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.example.userprofile.R
 
 fun ImageView.loadImage(strURL: String) {
     Glide.with(this.context)

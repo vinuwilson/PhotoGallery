@@ -1,8 +1,7 @@
-package com.example.photogallery.usergallery.domin
+package com.example.photogallery.usergallery.data.api
 
-import com.example.photogallery.usergallery.data.api.GalleryRepository
 import com.example.photogallery.usergallery.data.model.RecentPhotos
-import com.example.photogallery.usergallery.data.api.GalleryServices
+import com.example.photogallery.usergallery.domin.GalleryRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
