@@ -16,9 +16,6 @@
         <action
             android:id="@+id/action_galleryFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
-        <action
-            android:id="@+id/action_galleryFragment_to_testComposeFragment"
-            app:destination="@id/testComposeFragment" />
     </fragment>
     <fragment
         android:id="@+id/imageDetailsScreen"
@@ -39,14 +36,6 @@
         tools:layout="@layout/fragment_user_profile">
         <argument
             android:name="userDetails"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/testComposeFragment"
-        android:name="com.example.photogallery.TestComposeFragment"
-        android:label="TestComposeFragment" >
-        <argument
-            android:name="test"
             app:argType="string" />
     </fragment>
 </navigation>
